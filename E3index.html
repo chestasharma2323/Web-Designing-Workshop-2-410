@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marks Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            width: 300px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            width: 90%;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Marks Calculator</h2>
+
+    <!-- Input for number of subjects -->
+    <input type="number" id="subjects" placeholder="Enter number of subjects">
+
+    <button onclick="calculate()">Calculate</button>
+
+    <!-- Output -->
+    <div id="result"></div>
+</div>
+
+<script>
+function calculate() {
+    let numSubjects = document.getElementById("subjects").value;
+
+    if (numSubjects <= 0) {
+        alert("Enter a valid number!");
+        return;
+    }
+
+    let total = 0;
+
+    // Loop to take marks
+    for (let i = 1; i <= numSubjects; i++) {
+        let marks = prompt("Enter marks for subject " + i + ":");
+
+        marks = Number(marks);
+
+        if (marks < 0 || marks > 100 || isNaN(marks)) {
+            alert("Invalid marks! Enter between 0-100");
+            return;
+        }
+
+        total += marks;
+    }
+
+    let average = total / numSubjects;
+    let grade = "";
+    let result = "";
+
+    // Conditions for grade
+    if (average >= 90) {
+        grade = "A+";
+    } else if (average >= 75) {
+        grade = "A";
+    } else if (average >= 60) {
+        grade = "B";
+    } else if (average >= 50) {
+        grade = "C";
+    } else {
+        grade = "F";
+    }
+
+    // Pass/Fail
+    if (average >= 40) {
+        result = "Pass";
+    } else {
+        result = "Fail";
+    }
+
+    // Display output
+    document.getElementById("result").innerHTML =
+        "Total Marks: " + total + "<br>" +
+        "Average Marks: " + average.toFixed(2) + "<br>" +
+        "Grade: " + grade + "<br>" +
+        "Result: " + result;
+}
+</script>
+
+</body>
+</html>
