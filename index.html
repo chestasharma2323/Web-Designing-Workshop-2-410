@@ -1,0 +1,144 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Student Marks and Grade Calculator</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body{
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .container{
+            background:white;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 4px 15px rgba(0,0,0,0.2);
+            width:400px;
+            text-align:center;
+        }
+
+        h2{
+            color:#333;
+            margin-bottom:20px;
+        }
+
+        label{
+            font-size:18px;
+            color:#555;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            margin-top:10px;
+            border:1px solid #ccc;
+            border-radius:5px;
+            font-size:16px;
+        }
+
+        button{
+            margin-top:15px;
+            padding:10px 20px;
+            background:#4CAF50;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        button:hover{
+            background:#45a049;
+        }
+
+        #result{
+            margin-top:20px;
+            padding:15px;
+            background:#f4f4f4;
+            border-radius:8px;
+            font-size:18px;
+            color:#222;
+            line-height:1.8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Student Marks & Grade Calculator</h2>
+
+        <label>Enter Number of Subjects</label>
+        <input type="number" id="subjects" min="1" placeholder="e.g. 5">
+
+        <button onclick="calculate()">Calculate</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            let n = parseInt(document.getElementById("subjects").value);
+
+            if (isNaN(n) || n <= 0) {
+                alert("Please enter a valid number of subjects.");
+                return;
+            }
+
+            let total = 0;
+            let pass = true;
+
+            for (let i = 1; i <= n; i++) {
+                let marks = parseFloat(prompt("Enter marks for Subject " + i));
+
+                if (isNaN(marks) || marks < 0 || marks > 100) {
+                    alert("Enter valid marks between 0 and 100.");
+                    return;
+                }
+
+                total += marks;
+
+                if (marks < 40) {
+                    pass = false;
+                }
+            }
+
+            let average = total / n;
+            let grade;
+
+            if (average >= 90)
+                grade = "A+";
+            else if (average >= 80)
+                grade = "A";
+            else if (average >= 70)
+                grade = "B";
+            else if (average >= 60)
+                grade = "C";
+            else if (average >= 50)
+                grade = "D";
+            else
+                grade = "F";
+
+            let result = pass ? "PASS ✅" : "FAIL ❌";
+
+            document.getElementById("result").innerHTML =
+                "<strong>Total Marks:</strong> " + total + "<br>" +
+                "<strong>Average:</strong> " + average.toFixed(2) + "<br>" +
+                "<strong>Grade:</strong> " + grade + "<br>" +
+                "<strong>Result:</strong> " + result;
+        }
+    </script>
+
+</body>
+</html>
